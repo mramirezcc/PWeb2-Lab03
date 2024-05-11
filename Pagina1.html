@@ -8,7 +8,7 @@
         <h1>Primer Ejemplo de Javascript</h1>
         <div>
             <button onclick="increaseSize()">Aumentar Tamaño</button>
-            <button onclick="decreaseSize()"></button>
+            <button onclick="decreaseSize()">Disminuir Tamaño</button>
         </div>
         <p id="text">Este texto se modificará</p>
         <script>
@@ -17,6 +17,11 @@
             var fontSize = parseFloat(style.getPropertyValue('font-size'));
             function increaseSize(){
                 var newSize = fontSize + 10;
+                element.style.fontSize = newSize + 'px';
+                fontSize = parseFloat(style.getPropertyValue('font-size'));
+            }
+            function decreaseSize(){
+                var newSize = fontSize - 10;
                 element.style.fontSize = newSize + 'px';
                 fontSize = parseFloat(style.getPropertyValue('font-size'));
             }
