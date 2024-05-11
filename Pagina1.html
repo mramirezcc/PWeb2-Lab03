@@ -10,6 +10,11 @@
             <button onclick="increaseSize()">Aumentar Tamaño</button>
             <button onclick="decreaseSize()">Disminuir Tamaño</button>
         </div>
+        <div>
+            <button onclick="colorToRed()">Rojo</button>
+            <button onclick="colorToBlue()">Azul</button>
+            <button onclick="colorToGreen()">Verde</button>
+        </div>
         <p id="text">Este texto se modificará</p>
         <script>
             var element = document.getElementById("text");
@@ -24,6 +29,16 @@
                 var newSize = fontSize - 10;
                 element.style.fontSize = newSize + 'px';
                 fontSize = parseFloat(style.getPropertyValue('font-size'));
+            }
+            
+            function colorToRed(){
+                element.style.color = 'red';
+            }
+            function colorToGreen(){
+                element.style.color = 'green';
+            }
+            function colorToBlue(){
+                element.style.color = 'blue';
             }
         </script>
     </body>
