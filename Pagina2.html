@@ -6,27 +6,37 @@
     <body>
         <h1>Segundo Ejemplo de Javascript</h1>
         <form onsubmit = checkOperation()>
-            <input id = "factor1">
+            <input id = "value1">
             <select id = "operation">
                 <option>+</option>
                 <option>-</option>
                 <option>*</option>
                 <option>/</option>
+                <option>AND</option>
+                <option>OR</option>
+                <option>NOT</option>
             </select>
-            <input id = "factor2">
+            <input id = "value2">
             <button type = "submit">Realizar</button>
         </form>
         <p id = "result"><p>
         <script>
             function checkOperation(){
                 event.preventDefault();
-                var factor1 = document.getElementById("factor1").value;
-                var factor2 = document.getElementById("factor2").value;
+                var value1 = document.getElementById("value1").value;
+                var value2 = document.getElementById("value2").value;
                 var op = document.getElementById("operation").value;
-                
+                var value1, value2;
+
                 //Validación de datos
-                if(!validate(factor1, factor2, op)){
-                    alert("Ingrese valores válidos")ñ
+                if(isNumeric(value1, value2, op)){
+                    factor1 = parseInt(value1);
+                    factor2 = parseInt(value2);
+                }else if(isLogic(value1, value2, op)){
+                    factor1 = toBoolean(value1);
+                    factor2 = toBoolean(value2);
+                }else{
+                    alert("Ingrese valores válidos");
                     return;
                 }
 
@@ -44,20 +54,39 @@
                     case "/":
                         result = factor1 / factor2;
                         break;
+                    case "AND":
+                        result = factor1 && factor2;
+                        break;
+                    case "OR":
+                        result = factor1 || factor2;
+                        break;
+                    case "NOT":
+                        //Por modificar
+                        result = !factor2;
+                        break;
                 }
                 document.getElementById("result").innerHTML = "El resultado es " + result;
             }
-            function validate(factor1, factor2, op){
+
+            function isNumeric(value1, value2, op){
                 var arithmetic = ["+","-","*","/"];
+                return !isNaN(parseInt(value1)) && !isNaN(parseInt(value2)) && arithmetic.includes(op);
+            }
+
+            function isLogic(value1, value2, op){
                 var boole = ["true", "false"];
-                var logic = ["AND", "OR", "NOT"];
-                if(!isNaN(parseInt(factor1)) && !isNaN(parseInt(factor2)) && arithmetic.includes(op)){
+                var logic = ["AND", "OR"];
+
+                //Excepción
+                if(op == "NOT" && boole.includes(value2)){
                     return true;
                 }
-                if(logic.includes(factor1) && logic.includes(factor2) && logic.includes(p)){
-                    return true;
-                }
-                return false;
+
+                return boole.includes(value1) && boole.includes(value2) && logic.includes(op);
+            }
+
+            function toBoolean(value){
+                return value == "true";
             }
         </script>
     </body>
